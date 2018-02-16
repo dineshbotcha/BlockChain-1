@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>portal</title>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+    <script src="https://cdn.rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="./portalhistory.js"></script>
+    <style>
+
+    @media (min-width: 1366px){
+
+    #logo_img{
+      width:100px;
+      height:100px;
+
+    }
+  }
+  @media (max-width: 1366px){
+
+  #logo_img{
+    width:72px;
+    height:72px;
+
+  }
+}
+    </style>
+</head>
+<body style = "color:white;background-color:rgba(109, 110, 113, 0.89);" >
+<div class="container-fluid">
+  <div class="row" style="background-color:rgba(64, 65, 67, 0.89);">
+      <div class="col-xs-4 col-sm-1 col-md-1 col-lg-2 text-left" style=" padding-left:0%;">
+          <img src="./img/logo.png" alt="logo"  id = "logo_img" >
+      </div>
+      <div class="col-xs-8 col-sm-7 col-md-8 col-lg-7" style="text-align :center;">
+        <div class="col-sm-12">
+          <h3 style="color:white; margin-top:1%;">ZERV Supply Chain Marketplace </h3>
+          <h4 style="color:white">Contract History Portal</h4>
+        </div>
+      </div>
+      <div class=" col-xs-12 col-sm-4 col-md-3 col-lg-3 text-center" style="text-align:right;">
+        <h1>
+          <a href="#" class="btn btn-link "  style="color:white">
+            <span class="glyphicon glyphicon-user"></span>&nbsp;<span id="tradingPartner"></span>
+        </a> 
+          <a href = "#"   class="btn btn-link " onclick = "window.location = window.location.protocol + '//' + window.location.host+'/blockchain/home.html'; "  style="color:white" >Home</a>
+          <a href = "#"  class="btn btn-link " onclick = "delCookie(); window.location = window.location.protocol + '//' + window.location.host+'/blockchain/index.html'"  style="color:white" > log out</a>
+          </h1>
+      </div>
+  </div>
+  
+    <!-- <div class="row">
+        <div class=" row" style="background-color:rgba(64, 65, 67, 0.89);">
+            <div class=" col-xs-12 col-sm-1 col-md-1 text-center">
+                <img src="./img/logo.png" alt="logo" style="width:70px; height:70px;">
+            </div>
+            <div class=" col-xs-12 col-sm-10 col-md-9 col-lg-10 text-center "style="color:white">
+                <h3 style="color:white"> ZERV Supply Chain Marketplace</h3>
+                <h4 style="color:white">Contract History Portal </h4>
+            </div>
+            <div class=" col-xs-12 col-sm-1 col-md-2 col-lg-1 text-center">
+                <a href = "#" onclick = "window.location = window.location.protocol + '//' + window.location.host+'/blockchain/home.html'" style="color:white" ><p>Home</p></a>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12" style ="background-color:rgba(109, 110, 113, 0.89); margin-top:0px; min-height:100%">
+            <div class="col-xs-12 col-sm-12 col-md-12 text-left" style="padding-top:2%">
+                <b style="font-size: 20px;"></b>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 " style="padding-top:0px;">
+                           <!-- <div class="col-xs-12 col-sm-12 col-md-12">
+                                <b>Purchase list</b>
+                            </div>-->
+                            <div class=" col-xs-12 table-responsive">
+                                <table class="table table-bordered" id = "projectListTable">
+                                    <thead>
+                                        <tr>
+                                            <th> Contract Name</th>
+                                            <th> Initial Offer </th>
+                                            <th> Accepted BID (in ZERV)</th>
+                                            <th> Date</th>
+                                            <th> State</th>
+                                            <th> Initiating Trading Partner</th>
+                                            <th> Contracted Trading Partner</th>
+                                            <th> Description</th>
+                                            <th> Details</th>
+                                            <th> Attachment</th>
+                                            <th> Buyer Address </th>
+                                            <th> Seller Address </th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style = "color:black">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title" id = "ipfsHashAddress"></h6>
+            </div>
+            <div class="modal-body" style = "color:black">
+                <p id = "content"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
+
+
+
+</body>
+</html>

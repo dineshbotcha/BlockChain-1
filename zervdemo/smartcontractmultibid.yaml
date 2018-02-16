@@ -1,0 +1,95 @@
+#User Credentials
+users:
+  - userName: 'M1' 
+    userPassword: 1005
+
+  - userName: 'M2'
+    userPassword: 1010
+
+  - userName: 'M3'
+    userPassword: 1015
+
+  - userName: 'S1'
+    userPassword: 1020
+
+  - userName: 'S2'
+    userPassword: 1025
+
+  - userName: 'R1'
+    userPassword: 1030
+
+CreateInvestorRecord:
+  - administrator: 'M1'
+    investmentDate: '17-12-4'
+    investmentAmount: 120000
+    docHash: 'NA'
+    investedAmount: 100000
+    assetName: 'M1-cardin'
+    fullname: 'rich cardin'
+
+  - administrator: 'M2'
+    investmentDate: '17-12-4'
+    investmentAmount: 120000
+    docHash: 'NA'
+    investedAmount: 100000
+    assetName: 'M2-john'
+    fullname: 'hams john'
+
+  - administrator: 'M3'
+    investmentDate: '17-12-4'
+    investmentAmount: 120000
+    docHash: 'NA'
+    investedAmount: 100000
+    assetName: 'M3-david'
+    fullname: 'reiks david'
+
+  - administrator: 'S1'
+    investmentDate: '17-12-4'
+    investmentAmount: 120000
+    docHash: 'NA'
+    investedAmount: 100000
+    assetName: 'S1-boy'
+    fullname: 'herdith boy'
+
+  - administrator: 'S2'
+    investmentDate: '17-12-4'
+    investmentAmount: 120000
+    docHash: 'NA'
+    investedAmount: 100000
+    assetName: 'S2-jio'
+    fullname: 'tommy jio'
+
+  - administrator: 'R1'
+    investmentDate: '17-12-4'
+    investmentAmount: 120000
+    docHash: 'NA'
+    investedAmount: 100000
+    assetName: 'R1-leo'
+    fullname: 'james leo'
+
+transactions:
+  - name: [give a name for the transaction]
+    description: #[describe the transaction]
+       - action: createPurchaseOrder
+         user: M1
+         projectName: 'Laptop'
+         description: 'Mac'
+         offerAmount: 100
+         hash: 'NA'
+         fileHash: 'NA'
+
+       - action: createBidOffer
+         user: S1
+         purchasename: 'Laptop'
+         bidOfferAmount: 50
+
+       - action: createBidOffer
+         user: S2
+         purchasename: 'Laptop'
+         bidOfferAmount: 40
+
+       - action: acceptBidOffer
+         user: M1
+
+       - action: confirmOffer
+         user: M1

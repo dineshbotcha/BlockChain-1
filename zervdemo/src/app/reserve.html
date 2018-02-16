@@ -1,0 +1,216 @@
+<html>
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+    <meta charset="utf-8">
+    <title>Zerv Reserve</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src = "./reserve.js"></script>
+    <style>
+    table {
+        color: #333;
+        font-size: .9em;
+        font-weight: 300;
+        border-collapse: separate;
+        border-spacing: 20px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,.16);
+        border-radius: 2px;
+    }
+
+    th {
+        color: #fff;
+        background: #ccc;
+        border: none;
+    }
+
+    td:hover:not(th) {background-color: rgba(237,28,64,.1);}
+
+    td {
+        background: #ccc;
+        width:210px;
+        margin-left:5px;
+    }
+
+    input[type="button"] {
+        transition: all .3s;
+        border: 1px solid #ddd;
+        padding: 8px 16px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 15px;
+    }
+
+    input[type="button"]:not(.active) {
+        background-color:transparent;
+    }
+
+    .active {
+        background-color: #ff4d4d;
+    color :#fff;
+    }
+
+    input[type="button"]:hover:not(.active) {
+        background-color: #ddd;
+    }
+    @media (min-width: 1366px){
+
+    #logo_img{
+      width:100px;
+      height:100px;
+
+    }
+  }
+  @media (max-width: 1366px){
+
+  #logo_img{
+    width:72px;
+    height:72px;
+
+  }
+}
+    </style>
+<head>
+<body >
+<div class="container-fluid">
+  <!-- <div class="row" style="background-color:rgba(64, 65, 67, 0.89);">
+      <div class="col-xs-4 col-sm-1 col-md-1 col-lg-2 text-left" style=" padding-left:0%;">
+          <img src="logo.png" alt="logo" id= "logo_img" >
+      </div>
+      <div class="col-xs-8 col-sm-7 col-md-8 col-lg-7" style="text-align :center;">
+        <div class="col-sm-12">
+          <h3 style="color:white; margin-top:1%"> Zerv Reserve </h3>
+          <h4 style="color:white"> Investments Inventory</h3>
+        </div>
+      </div>
+      <div class=" col-xs-12 col-sm-4 col-md-3 col-lg-3 text-center" style="text-align:right;">
+        <h1>
+          <a href="#" class="btn btn-link "  style="color:white;text-decoration:none">
+            <span class="glyphicon glyphicon-user"></span> <span id="tradingPartner"></span>
+        </a>
+          <a href = "#"   class="btn btn-link " onclick = "window.location = window.location.protocol + '//' + window.location.host+'/blockchain/home.html'; "  style="color:white" >Home</a>
+          <a href = "#"  class="btn btn-link " onclick = "delCookie(); window.location = window.location.protocol + '//' + window.location.host+'/blockchain/index.html'"  style="color:white" > log out</a>
+          </h1>
+      </div>
+  </div> -->
+
+  <div class="row" style="background-color:rgba(64, 65, 67, 0.89);">
+      <div class="col-xs-4 col-sm-1 col-md-1 col-lg-2 text-left" style=" padding-left:0%;">
+          <img src="./img/logo.png" alt="logo" id="logo_img">
+      </div>
+      <div class="col-xs-8 col-sm-7 col-md-8 col-lg-7" style="text-align :center;"><h3 style="color:white; margin-top:1%"> Zerv Reserve </h3>
+      <h4 style="color:white"> Investments Inventory</h3>
+      </div>
+      <div class=" col-xs-12 col-sm-4 col-md-3 col-lg-3 text-center" style="text-align:right;">
+        <h1>
+          <a href="#" class="btn btn-link "  style="color:white;text-decoration:none;">
+            <span class="glyphicon glyphicon-user">   </span>&nbsp;<span id="tradingPartner"></span>
+        </a>
+          <a href = "#"   class="btn btn-link " onclick = "window.location = window.location.protocol + '//' + window.location.host+'/blockchain/home.html'; "  style="color:white" >Home</a>
+          <a href = "#"  class="btn btn-link " onclick = "delCookie(); window.location = window.location.protocol + '//' + window.location.host+'/blockchain/index.html'"  style="color:white" > log out</a>
+          </h1>
+      </div>
+  </div>
+   <!-- rgba(238, 242, 245, 0.075); -->
+  <div class="row " style="background-color:rgb(125, 126, 129);     border-bottom : 1px solid white; color:white; padding:10px;">
+    <div class="col-md-6 text-left">
+        <b> Total Trading Partners: </b><span id="total_trading_partners"></span>
+      </br>
+        <b>Total Asset Cards: </b><span id="total_asset_cards"></span>
+    </div>
+  </div>
+
+        <!-- <div class=" row" style="background-color:rgba(64, 65, 67, 0.89);">
+            <div class="col-sm-1">
+                <img src="./img/logo.png" alt="logo" style="width:72px; height:72px;">
+            </div>
+            <div class="col-sm-10" style = "text-align:center">
+                <h3 style="color:white; margin-top:1%;"> Zerv Reserve </h3>
+                <h4 style="color:white"> Investments Inventory</h3>
+            </div>
+            <div class="col-sm-1" style = "text-align:right">
+                <a href = "#" onclick = "window.location = window.location.protocol + '//' + window.location.host+'/blockchain/home.html'"  style="color:white" ><p style =" text-align:right; line-height:4em; ">Home</p></a>
+            </div>
+        </div> -->
+
+<div class = "row" text align = "center" style ="margin-top:1%;">
+    <div class = "col-lg-4">
+        <table class="table table-striped" >
+            <tbody>
+            <tr>
+                <td>Total Audited ZERV</td>
+                <td id = "totalTokens"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class = "col-sm-4">
+    </div>
+</div>
+    <div class = "col-sm-12" id ="mainDiv" style = " padding:0px;">
+        <div class="row" style = "margin-left:0%">
+        <p><b> ZERV Account Holdings</b></p>
+        </div>
+        <div class = "row" style = "margin-left:0%">
+        <table cellspacing="10" id="myTable">
+        <tr id ="assetRow">
+
+        </tr>
+        </table>
+        </div>
+        <div class = "row" id = "detailsRow" style ="margin-top:4%;">
+            <div class = "col-lg-6" id="divrow">
+                <table id="detailstable" style="display:none">
+                    <tr id ="row1">
+                        <td id = "row1col1" style = "background-color:#ffffff;">Asset Address</td>
+                        <td id = "assetAddress"  style = "background-color:#ffffff;"></td>
+                    </tr>
+                    <tr id ="row6">
+                        <td id ="row3col1" style = "background-color:#ffffff;">Owner Adress</td>
+                        <td id ="assetOwner" style = "background-color:#ffffff;"></td>
+                    </tr>
+                    <tr id ="row2">
+                        <td id ="row3col1" style = "background-color:#ffffff;">Asset Name</td>
+                        <td id ="name" style = "background-color:#ffffff;"></td>
+                    </tr>
+                    <tr id="row3">
+                        <td id ="row4col1" style = "background-color:#ffffff;">Owner Name</td>
+                        <td id="ownerName" style = "background-color:#ffffff;"></td>
+                    </tr>
+                    <tr id="row3">
+                        <td id ="row4col1" style = "background-color:#ffffff;">Trading Partner</td>
+                        <td id="tP" style = "background-color:#ffffff;"></td>
+                    </tr>
+                    <tr id="row4">
+                        <td id ="row4col1" style = "background-color:#ffffff;"> Original Balance</td>
+                        <td id="Originalbalance" style = "background-color:#ffffff;"></td>
+                    </tr>
+                    <tr id="row5">
+                        <td id ="row4col1" style = "background-color:#ffffff;"> Current Balance</td>
+                        <td id="balance" style = "background-color:#ffffff;"></td>
+                    </tr>
+                </table>
+
+            </div>
+            <div class = "row" style ="margin-top:4%;">
+                <div class = "col-lg-10" id="divrow">
+
+                    <table id="historytable" style="display:none">
+                    <caption style = "text-align:left; margin-left: 2%;"><b>ZERV Marketplace Transactions</b></caption>
+                        <tr>
+                            <th>From Address</th>
+                            <th>To Address</th>
+                            <th>Number of ZERV Exchanged</th>
+                            <th> Category </th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

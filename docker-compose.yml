@@ -1,0 +1,22 @@
+version: "2.0"
+
+services:
+  explorer:
+    build: explorer
+
+  zervdemo:
+    build: zervdemo 
+
+  ipfs:
+    build: ipfs
+    ports:
+     - 5001:5001
+
+  scproxy:
+    build: nginx-proxy
+    ports:
+      - 80:80
+    depends_on:
+      - explorer
+      - zervdemo
+      - ipfs

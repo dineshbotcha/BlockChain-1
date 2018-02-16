@@ -1,0 +1,128 @@
+<html>
+<head>
+    <title>Assets</title>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+    <script src="https://cdn.rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="./asset.js"></script>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background-color: #fafafa;
+    }
+
+    table {
+        color: #333;
+        font-size: .9em;
+        font-weight: 300;
+        border-collapse: separate;
+        border-spacing: 20px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,.16);
+        border-radius: 2px;
+    }
+
+    th {
+        color: #fff;
+        background: #ccc;
+        border: none;
+    }
+
+    td:hover:not(th) {background-color: rgba(237,28,64,.1);}
+
+    td {
+        background: #ccc;
+        width:210px;
+        margin-left:5px;
+    }
+    
+    input[type="button"] {
+        transition: all .3s;
+        border: 1px solid #ddd;
+        padding: 8px 16px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 15px;
+    }
+
+    input[type="button"]:not(.active) {
+        background-color:transparent;
+    }
+
+    .active {
+        background-color: #ff4d4d;
+        color :#fff;
+    }
+
+    input[type="button"]:hover:not(.active) {
+        background-color: #ddd;
+    }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class=" row" style="background-color:rgba(64, 65, 67, 0.89);"> 
+            <div class=" col-xs-12 col-sm-1 col-md-1 text-center">
+                <img src="./img/logo.png" alt="logo" style="width:70px; height:70px;">
+            </div>
+            <div class=" col-xs-12 col-sm-10 col-md-9 col-lg-10 text-center "style="color:white">
+                <h3 style="color:white"> ZERV Asset Cards </h3>
+            </div>
+            <div class=" col-xs-12 col-sm-1 col-md-2 col-lg-1 text-center">
+                <a href = "#" onclick = "window.location = window.location.protocol + '//' + window.location.host+'/blockchain/'" style="color:white" ><p>Home</p></a>
+            </div>
+        </div>
+    </div>
+    <div class = "row" id ="mainDiv" style = "margin-left: 5%; margin-right:5%;">
+        <div class="row" style = "margin-left:0%">
+        <p> Your Assets</p>
+        </div>
+        <div class = "row" style = "margin-left:0%">
+        <table cellspacing="10" id="myTable">
+        <tr id ="assetRow">
+
+        </tr>  
+        </table>
+        </div>
+        <div class = "row" style ="margin-top:4%;">
+            <div class = "col-lg-8" id="divrow">
+                <table id="detailstable" style="display:none">
+                    <tr id ="row1">
+                        <td id = "row1col1" style = "background-color:#ffffff;">Asset Address</td>
+                        <td id = "assetAddress"  style = "background-color:#ffffff;"></td>
+                    </tr>
+                    <tr id ="row2">
+                        <td id = "row2col1" style = "background-color:#ffffff;">Asset Owner</td>
+                        <td id ="assetOwner"  style = "background-color:#ffffff;"></td>
+                    </tr>
+                    <tr id ="row3">
+                        <td id ="row3col1" style = "background-color:#ffffff;">Name</td>
+                        <td id ="name" style = "background-color:#ffffff;"></td>
+                    </tr>
+                    <tr id="row4">
+                        <td id ="row4col1" style = "background-color:#ffffff;">Balance</td>
+                        <td id="balance" style = "background-color:#ffffff;"></td>
+                    </tr>
+                </table>
+                <table id="historytable" style="display:none">
+                    <tr>
+                        <th>From Address</th>
+                        <th>To Address</th>
+                        <th> Amount</th>
+                        <th>Category</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

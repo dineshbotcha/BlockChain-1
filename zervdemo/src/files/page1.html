@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  //text-align:center;
+}
+
+body {
+  background-color: #fafafa;
+  padding:10px;
+  
+}
+
+table {
+  color: #333;
+  font-size: .9em;
+  font-weight: 300;
+  //line-height: 40px;
+  //border-collapse: separate;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 2px solid #ed1c40;
+  //width: 100%;
+  //margin: 50px auto;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,.16);
+  border-radius: 2px;
+}
+
+th {
+  background: #ed1c40;
+  color: #fff;
+  border: none;
+}
+
+td:hover:not(th) {background-color: rgba(237,28,64,.1);}
+
+td {
+    border: 2px solid #ed1c40;
+    width:210px;
+    //text-align:center;
+}
+input[type="button"] {
+    transition: all .3s;
+    border: 1px solid #ddd;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+input[type="button"]:not(.active) {
+    background-color:transparent;
+}
+
+.active {
+    background-color: #ff4d4d;
+    color :#fff;
+}
+
+input[type="button"]:hover:not(.active) {
+    background-color: #ddd;
+}
+</style>
+</head>
+<body>
+<button onclick="myFunction()">add column</button>
+<table id="myTable">
+    <tr id ="assetRow">
+        
+    </tr>  
+</table>
+<div class = "row">
+    <div class = "col-lg-3" id="divrow"></div>
+</div>
+<script>
+// get the table element
+var $table,
+        // number of rows per page
+        $n = 4,
+        // number of rows of the table
+        $rowCount=0,
+        // an array to hold each row
+        $tr = [],
+        // loop counters, to start count from rows[1] (2nd row) if the first row has a head tag
+        $i,$ii,$j = 0;
+        
+    // count the number of pages
+var $pageCount=0;
+
+function hello() {  
+    $table = document.getElementById("myTable");
+    $rowCount = $table.rows[0].cells.length;
+    // if we had one page only, then we have nothing to do ..
+    if ($pageCount > 1) {
+        // assign each row outHTML (tag name & innerHTML) to the array
+        for ($i = $j,$ii = 0; $i < $rowCount; $i++, $ii++)
+            $tr[$ii] = $table.rows[0].cells[$i].outerHTML;
+        // create a div block to hold the buttons
+        $table.insertAdjacentHTML("afterend","<div id='buttons'></div");
+        // the first sort, default page is the first one
+        sort(1);
+    }
+
+}    
+    // ($p) is the selected page number. it will be generated when a user clicks a button
+    function sort($p) {
+        $table = document.getElementById("myTable");
+        $rowCount = $table.rows[0].cells.length;
+        console.log("called");
+        /* create ($rows) a variable to hold the group of rows
+        ** to be displayed on the selected page,
+        ** ($s) the start point .. the first row in each page, Do The Math
+        */
+        //var $rows = $s = (($n * $p)-$n);
+        var $rows = "";
+        var $s = (($n * $p)-$n);
+        console.log($rows);
+        for ($i = $s; $i < ($s+$n) && $i < $tr.length; $i++)
+            $rows += $tr[$i];
+        
+        // now the table has a processed group of rows ..
+        console.log($rows);
+        $table.innerHTML = $rows;
+        // create the pagination buttons
+        document.getElementById("buttons").innerHTML = pageButtons($pageCount,$p);
+        // CSS Stuff
+        document.getElementById("id"+$p).setAttribute("class","active");
+    }
+
+
+    // ($pCount) : number of pages,($cur) : current page, the selected one ..
+    function pageButtons($pCount,$cur) {
+        /* this variables will disable the "Prev" button on 1st page
+           and "next" button on the last one */
+        var $prevDis = ($cur == 1)?"disabled":"",
+            $nextDis = ($cur == $pCount)?"disabled":"",
+            /* this ($buttons) will hold every single button needed
+            ** it will creates each button and sets the onclick attribute
+            ** to the "sort" function with a special ($p) number..
+            */
+            $buttons = "<input type='button' value='&lt;&lt; Prev' onclick='sort("+($cur - 1)+")' "+$prevDis+">";
+        for ($i=1; $i<=$pCount;$i++)
+            $buttons += "<input type='button' id='id"+$i+"'value='"+$i+"' onclick='sort("+$i+")'>";
+        $buttons += "<input type='button' value='Next &gt;&gt;' onclick='sort("+($cur + 1)+")' "+$nextDis+">";
+        return $buttons;
+    }
+
+
+var row_nr = 0;
+var col_nr = 0;
+var len = 0;
+var count = 0;
+function myFunction() {
+    var table = document.getElementById("myTable");
+    console.log(table);
+    var row = document.getElementById("assetRow");
+    console.log(col_nr);
+    console.log(row);
+    var cell = row.insertCell(col_nr);
+    cell.setAttribute("id", "cell_" + col_nr);
+    //Header Div
+    var div = document.createElement('div');
+    div.setAttribute("id", "header_" + count );
+    div.setAttribute("class","subheader")
+    div.innerHTML=" Asset:123456789101234567891 ";
+    //Footer div
+    var div2 = document.createElement('div');
+    div2.setAttribute("class","subfooter")
+    div2.setAttribute("id", "footer_" + count);
+    var a = document.getElementById("cell_"+ col_nr);
+    a.appendChild(div);
+    a.appendChild(div2);
+    var button = document.createElement('button');
+    button.innerHTML="View";
+    button.setAttribute("id", "button_" + count);
+    button.setAttribute("onclick", "view(this.id)");
+    document.getElementById("footer_" + count).appendChild(button);
+    col_nr++;
+    count++;
+    
+    $rowCount++;
+    console.log("rowcount:"+$rowCount);
+    
+    console.log("colcount:"+$pageCount);
+    
+    if(col_nr == 10) {
+    $pageCount = Math.ceil($rowCount / $n);
+    hello();
+    }
+   
+}
+
+function view(id) {
+    console.log(id);
+    //Sub Div onclick view
+    var subdiv = document.createElement('div');
+    subdiv.setAttribute("id", "subdivhead_");
+    subdiv.setAttribute("class","col-sm-3 col-md-6 col-lg-4")
+    var subdivBody = document.createElement('div');
+    subdivBody.setAttribute("id", "subdivbody_");
+    subdivBody.setAttribute("class","col-sm-3 col-md-6 col-lg-4")
+    //subdivBody.innerHTML="hai";
+    //appending
+    var b = document.getElementById("divrow");
+    b.innerHTML = "";
+    //b.innerHTML="";
+    //b.appendChild(subdiv);
+    //details
+    var detailsbtn = document.createElement('button');
+    detailsbtn.setAttribute("id","detailsbtn_"+count);
+    detailsbtn.innerHTML="Details";
+    detailsbtn.setAttribute("onclick","details_div(this.id)");
+    //history
+    var historybtn = document.createElement('button');
+    historybtn.setAttribute("id","historybtn_"+count);
+    historybtn.setAttribute("onclick","history_div(this.id)");
+    historybtn.innerHTML="History";
+    //appending
+    b.appendChild(subdiv).appendChild(detailsbtn);
+    b.appendChild(subdiv).appendChild(historybtn);
+    b.appendChild(subdivBody);
+    details_div(id);
+}
+
+function details_div(id){
+
+    var bodyDiv = document.getElementById("subdivbody_");
+    bodyDiv.innerHTML = "";
+    var a = document.getElementById("history_div");
+    var detailsdiv = document.getElementById("details_div");
+    if (detailsdiv = null){
+        a.setAttribute("style" ,"display:block");
+        detailsdiv.innerHTML="";
+    }
+    else { 
+        if (a != null){
+            a.setAttribute("style" ,"display:none");
+            a.innerHTML="";
+        }    
+    }
+    //CREATINGOF Div
+    var detailsdiv = document.createElement('div');
+    detailsdiv.setAttribute("id", "details_div");
+    detailsdiv.setAttribute("style" ,"display:block");
+    detailsdiv.innerHTML="detailsdiv";
+    //creating details table
+    var detailstab = document.createElement('table');
+    detailstab.setAttribute("id","detailstab_");
+    //row
+    var detailsrow = detailstab.insertRow();
+    detailsrow.setAttribute("id" ,"detailsrow_");
+    detailsrow.innerHTML="details row";
+    //column
+    var detailscell = detailsrow.insertCell();
+    detailscell.setAttribute("id" ,"detailscell_");
+    detailscell.innerHTML="details column";
+    //appending
+    var g = document.getElementById("subdivbody_");
+    g.appendChild(detailsdiv).appendChild(detailstab);
+    //document.getElementById("history_div"+count).innerHTML = "Close";
+}
+
+function history_div(id){
+    var bodyDiv = document.getElementById("subdivbody_");
+    bodyDiv.innerHTML = "";
+    var detailsdiv = document.getElementById("details_div");
+    //detailsdiv.setAttribute("style" ,"display:none");
+    var history = document.getElementById("history_div");
+    if (history != null) {
+        //detailsdiv.setAttribute("style" ,"display:block");
+        history.innerHTML="";
+    }
+    //CREATING OF Div
+    var historydiv = document.createElement('div');
+    historydiv.setAttribute("id", "history_div");
+    historydiv.setAttribute("style" ,"display:block");
+    historydiv.innerHTML="historydiv";
+    //creating history table
+    var historytab = document.createElement('table');
+    historytab.setAttribute("id","historytab");
+    //row
+    var historyrow = historytab.insertRow();
+    historyrow.setAttribute("id" ,"detailsrow_");
+    historyrow.innerHTML="historyrow";
+    //column
+    var historycell = historyrow.insertCell();
+    historycell.setAttribute("id" ,"detailscell_");
+    historycell.innerHTML="Historycolumnhh";
+    //appending
+    var h = document.getElementById("subdivbody_");
+    h.appendChild(historydiv).appendChild(historytab);
+}
+
+</script>
+</body>
+</html>
+
+
